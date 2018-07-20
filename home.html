@@ -640,6 +640,7 @@
                 if (hb_debug) console.log("gpt.js not ready yet", Date.now() - timerStart);
             }
         }
+        
         googletag.cmd.push(function() {
             googletag.slots["top"] = googletag.defineSlot("/133596308/us.ibtimes/technology/articles", [
                     [728, 90],
@@ -703,6 +704,30 @@
                 .addService(googletag.pubads())
                 .setTargeting("pos", "oop3");
         });
+        
+
+    function generateSlotName(googleSlot) {
+        if (googleSlot && typeof googleSlot.getSlotId == "function") {
+            var slotID = googleSlot.getSlotId();
+            if (slotID && typeof slotID.getDomId == "function") {
+                return slotID.getDomId();
+            }
+        }
+        return "";
+    }
+
+    function callingA9(){
+
+        var notifyId,
+            arrayOfDivIds = [];
+
+        if(window.OWT && typeof window.OWT.registerExternalBidders === "function"){
+            for(var slotName in googletag.slots){                
+                arrayOfDivIds.push(generateSlotName(googletag.slots[slotName]));
+            }
+            notifyId = window.OWT.registerExternalBidders(arrayOfDivIds);
+        }
+
         apstag.fetchBids({
             slots: [{
                     slotID: 'dfp-ad-top',
@@ -755,13 +780,16 @@
             amznVideoAPS(bids);
             googletag.cmd.push(function() {
                 apstag.setDisplayBids();
+                window.OWT && typeof OWT.notifyExternalBiddingComplete === "function" && OWT.notifyExternalBiddingComplete(notifyId);
                 amznads2_loaded = true;
                 console.log("amznads2_loaded:", amznads2_loaded, Date.now() - timerStart);
-                gpt_callback();
+                //gpt_callback();
             });
         });
+    }        
+
         googletag.cmd.push(function() {
-            googletag.pubads().disableInitialLoad();
+            googletag.pubads().disableInitialLoad(); // #: why is it needed ?
             googletag.pubads().enableAsyncRendering();
             googletag.pubads().enableSingleRequest();
             googletag.pubads().collapseEmptyDivs();
@@ -796,8 +824,13 @@
             if (keyEx.length) googletag.pubads().setTargeting("adexclusion", keyEx);
             for (i in dfpEx) googletag.pubads().setCategoryExclusion(dfpEx[i]);
             googletag.enableServices();
+            callingA9();
         });
+
+
+
     </script>
+
     <script type="text/javascript">
         <!--//--><![CDATA[//><!--
         for (var fonts = document.cookie.split("advaggf"), i = 0; i < fonts.length; i++) {
@@ -811,6 +844,7 @@
         }
         //--><!]]>
     </script>
+
     <style type="text/css" media="all">
         /* <![CDATA[ */
         @font-face {
@@ -7887,7 +7921,7 @@
             <div class="content">
                 <header class="page-header">
                     <div class="container-fluid flex-md ai-c jc-sb">
-                        <time class="hidden-xs hidden-sm">Jul 20, 5:07 PM EDT</time>
+                        <time class="hidden-xs hidden-sm">Jul 20, 12:55 PM EDT</time>
                         <div class="logo">
                             <a href="/"></a>
                         </div>
@@ -7905,7 +7939,7 @@
                                     <div class="form-actions form-wrapper" id="edit-actions">
                                         <input type="submit" id="edit-submit" name="op" value="" class="form-submit" />
                                     </div>
-                                    <input type="hidden" name="form_build_id" value="form-M2UHoK0cnw4_VsqjlVSXE9jVSJEYK92VV8duP682icM" />
+                                    <input type="hidden" name="form_build_id" value="form-uAp_yydp6u831OFs_JzFB0-WGVAf-zd3P-Sn3HEh4R8" />
                                     <input type="hidden" name="form_id" value="search_block_form" />
                                 </div>
                             </form>
@@ -8875,7 +8909,7 @@ function advagg_mod_1_check(){if(window.init_drupal_core_settings&&window.jQuery
                 "pathPrefix": "",
                 "ajaxPageState": {
                     "theme": "us_ibtimes",
-                    "theme_token": "Gt9aJBefuaIyrDTp8Ub-N6EuvnzQcfqdZyeg0-CAhtg"
+                    "theme_token": "LFVZ4qg5lVzein6tIElEbzK2reyUrrz8VEYQ0AQvn30"
                 },
                 "chosen": {
                     "selector": "#edit-field-secondary-categories-und, #edit-field-dfp-category-und",
@@ -8918,7 +8952,7 @@ function advagg_mod_1_check(){if(window.init_drupal_core_settings&&window.jQuery
                         "url": "http%3A%2F%2Fwww.ibtimes.com%2Fserve-free-society-social-media-must-evolve-beyond-data-mining-2691438"
                     },
                     "settings": {
-                        "st": 1532120846,
+                        "st": 1532105748,
                         "track_url": "http:\/\/feeds.ibt.com\/track.gif"
                     }
                 },
